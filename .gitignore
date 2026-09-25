@@ -2,6 +2,9 @@ node_modules
 dist
 src/convex/_generated
 
+# Generated source export (downloadable build artifact, not part of the app)
+public/downloads
+
 # Local secrets — never commit these to the connected GitHub repo
 .env
 .env.*
