@@ -7,11 +7,22 @@ import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import { TICKER_ITEMS } from "@/components/store/ticker";
 import { whatsappChatUrl } from "@/lib/whatsapp";
 
+/**
+ * The track animates by -50%, so one half of it has to stay wider than the
+ * viewport or the loop would expose a gap on wide screens. Each half repeats
+ * the list a few times to guarantee that.
+ */
+const TICKER_REPEATS = 2;
+
 function AnnouncementBar() {
-  const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+  const half = Array.from({ length: TICKER_REPEATS }, () => TICKER_ITEMS).flat();
+  const items = [...half, ...half];
   return (
     <div className="overflow-hidden border-b border-border bg-foreground text-background">
-      <div className="marquee-track flex w-max items-center py-2.5">
+      <div
+        className="marquee-track flex w-max items-center py-2.5"
+        style={{ animationDuration: "40s" }}
+      >
         {items.map((item, index) => (
           <span
             key={`${item}-${index}`}
