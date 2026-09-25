@@ -2,6 +2,7 @@ import { Instagram, MapPin } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 
+import { BrandMark } from "@/components/store/BrandMark";
 import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import {
   BRANDS,
@@ -39,9 +40,12 @@ export function Footer() {
       <div className="container-x py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
-            <p className="display text-2xl">
-              DRAAG<span className="text-muted-foreground">.CO</span>
-            </p>
+            <div className="flex items-center gap-3">
+              <BrandMark className="size-11 rounded-[6px]" />
+              <p className="display text-2xl">
+                DRAAG<span className="text-muted-foreground">.CO</span>
+              </p>
+            </div>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               An independent multi-brand retailer for sneakers, sunglasses and
               watches. Curated in small runs, sold one conversation at a time.

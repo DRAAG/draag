@@ -1,1 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 96.81 96.81"><rect width="96.81" height="96.81" rx="18"/><g fill="#fff"><rect x="24.67" y="24.67" width="47.47" height="11.87"/><rect x="24.67" y="36.54" width="11.87" height="35.61"/><rect x="40.06" y="39.98" width="23.74" height="11.87"/><rect x="40.06" y="51.85" width="11.87" height="20.3"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="DRAAG.CO">
+  <defs>
+    <linearGradient id="chrome" x1="0.1" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.18" stop-color="#ECEFF4"/>
+      <stop offset="0.42" stop-color="#A9B0BA"/>
+      <stop offset="0.58" stop-color="#6E747D"/>
+      <stop offset="0.76" stop-color="#C6CCD4"/>
+      <stop offset="1" stop-color="#8A9099"/>
+    </linearGradient>
+    <linearGradient id="crimson" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#FF7A66"/>
+      <stop offset="0.22" stop-color="#E8332A"/>
+      <stop offset="0.55" stop-color="#B4101A"/>
+      <stop offset="0.8" stop-color="#D8231F"/>
+      <stop offset="1" stop-color="#8E0B12"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.62" cy="0.74" r="0.52">
+      <stop offset="0" stop-color="#E8332A" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#E8332A" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Everything below/right of the sweep is the crimson half of the mark. -->
+    <clipPath id="sweep">
+      <polygon points="150,392 560,133 560,560 150,560"/>
+    </clipPath>
+  </defs>
+
+  <rect width="512" height="512" rx="104" fill="#050506"/>
+  <rect width="512" height="512" rx="104" fill="url(#glow)"/>
+
+  <g transform="translate(256 256) scale(1.15) translate(-284 -272)">
+    <path
+      d="M176 132 L260 132 A140 140 0 0 1 260 412 L176 412 Q168 412 168 404 L168 140 Q168 132 176 132 Z"
+      fill="url(#chrome)"
+    />
+    <path
+      d="M176 132 L260 132 A140 140 0 0 1 260 412 L176 412 Q168 412 168 404 L168 140 Q168 132 176 132 Z"
+      fill="url(#crimson)"
+      clip-path="url(#sweep)"
+    />
+    <path
+      d="M244 200 L296 200 A72 72 0 0 1 296 344 L244 344 Q236 344 236 336 L236 208 Q236 200 244 200 Z"
+      fill="#050506"
+    />
+  </g>
+</svg>

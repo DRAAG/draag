@@ -1,7 +1,6 @@
 // TODO: REPLACE THIS LANDING PAGE WITH AN ELEGANT, THEMATIC, AND WELL-DESIGNED LANDING PAGE RELEVANT TO THE PROJECT
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
-import logo from "@/assets/logo.svg";
 
 export default function Landing() {
   return (
@@ -19,7 +18,7 @@ export default function Landing() {
         {/* TODO: landing page goes here; replace with the landing page */}
         <div className="flex justify-center">
           <img
-            src={logo}
+            src="/logo.svg"
             alt="Lock Icon"
             width={64}
             height={64}

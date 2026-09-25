@@ -3,6 +3,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 
+import { BrandMark } from "@/components/store/BrandMark";
 import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import { cn } from "@/lib/utils";
 import { whatsappChatUrl } from "@/lib/whatsapp";
@@ -63,9 +64,7 @@ export function Navbar() {
           aria-label="DRAAG.CO home"
           className="flex shrink-0 items-center gap-2.5"
         >
-          <span className="flex size-7 items-center justify-center rounded-[3px] bg-foreground">
-            <span className="block size-2 bg-accent" />
-          </span>
+          <BrandMark className="size-9 rounded-[5px] sm:size-10" />
           <Wordmark />
         </Link>
 
