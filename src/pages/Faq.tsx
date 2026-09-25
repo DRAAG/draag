@@ -113,11 +113,11 @@ const SECTIONS = [
       },
       {
         q: "Can I return an item?",
-        a: "Returns are accepted for manufacturing defects reported within 48 hours of delivery. Because we confirm every detail on WhatsApp before dispatch, change-of-mind returns aren't offered.",
+        a: "Returns are accepted for manufacturing defects reported within 3 days of delivery. Because we confirm every detail on WhatsApp before dispatch, change-of-mind returns aren't offered.",
       },
       {
         q: "What if the item arrives damaged?",
-        a: "Send us photos on WhatsApp within 48 hours. We'll arrange a replacement or a full refund, and we handle the courier claim on our side.",
+        a: "Send us photos on WhatsApp within 3 days. Damaged pairs are exchanged or paid back as cashback, and we handle the courier claim on our side.",
       },
     ],
   },

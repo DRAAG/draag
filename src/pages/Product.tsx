@@ -336,7 +336,8 @@ export default function ProductPage() {
               <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
                 Dispatched within 24 hours of confirmation. Delivery takes 3–6
                 working days across India. Unworn pairs can be exchanged for a
-                different size within 7 days of delivery.
+                different size within 7 days of delivery, and damaged pairs are
+                exchanged or paid back within 3 days.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="authenticity">
