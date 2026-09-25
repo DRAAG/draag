@@ -32,12 +32,16 @@ export interface Product {
   colors: ColorOption[];
   sizes: string[];
   tags: ProductTag[];
+  /** Dummy catalogue photo — replace with real product photography. */
+  image: string;
 }
 
-export const WHATSAPP_NUMBER = "919633492848";
-export const WHATSAPP_DISPLAY = "+91 96334 92848";
-export const CONTACT_EMAIL = "hello@draag.co";
+export const WHATSAPP_NUMBER = "919995589035";
+export const WHATSAPP_DISPLAY = "+91 99955 89035";
 export const INSTAGRAM_HANDLE = "@draag.co";
+/** Instagram business DM — every enquiry that used to be an email goes here. */
+export const INSTAGRAM_DM_URL =
+  "https://www.instagram.com/draag.co?stkn=MWdxcDh3YmRtdDNnaA==";
 
 export const BRANDS: Brand[] = [
   {
@@ -115,7 +119,15 @@ const C = {
   silver: { name: "Silver", hex: "#D3D5D8" },
 } satisfies Record<string, ColorOption>;
 
-export const PRODUCTS: Product[] = [
+/**
+ * Dummy catalogue photography: a deterministic real photo per product and
+ * frame, so the grid reads like a stocked store instead of empty plates.
+ */
+export function productImage(slug: string, frame = 0): string {
+  return `https://picsum.photos/seed/draag-${slug}-${frame}/1000/1250`;
+}
+
+const PRODUCT_DATA: Omit<Product, "image">[] = [
   // ---------------------------------------------------------------- sneakers
   {
     slug: "nike-air-max-90",
@@ -324,6 +336,12 @@ export const PRODUCTS: Product[] = [
     tags: ["featured"],
   },
 ];
+
+/** Every product gets a dummy photo; use `productImage(slug, frame)` for the rest. */
+export const PRODUCTS: Product[] = PRODUCT_DATA.map((product) => ({
+  ...product,
+  image: productImage(product.slug),
+}));
 
 export function getProductBySlug(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);

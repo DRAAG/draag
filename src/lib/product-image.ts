@@ -9,12 +9,12 @@ import type { CategorySlug } from "@/data/products";
  * crop and angle so a gallery still feels like a photo set.
  */
 
-const ACCENT = "#C7F03C";
+const ACCENT = "#C79A63";
 
 const TONES: Record<CategorySlug, { a: string; b: string; ink: string }> = {
-  sneakers: { a: "#F4F1EA", b: "#DBD3C3", ink: "#141410" },
-  sunglasses: { a: "#EEF0F3", b: "#D3D9E0", ink: "#14161A" },
-  watches: { a: "#F3EDE2", b: "#DCD0BC", ink: "#17140E" },
+  sneakers: { a: "#EFE5D6", b: "#D9C6AD", ink: "#2C2018" },
+  sunglasses: { a: "#E9E0D4", b: "#CEBCA4", ink: "#281D15" },
+  watches: { a: "#F2E9DC", b: "#D7C4A8", ink: "#2A1E16" },
 };
 
 function escapeXml(value: string): string {

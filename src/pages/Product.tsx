@@ -27,6 +27,7 @@ import {
   brandName,
   formatPrice,
   getProductBySlug,
+  productImage,
 } from "@/data/products";
 import { cn } from "@/lib/utils";
 import { buildOrderMessage, whatsappOrderUrl } from "@/lib/whatsapp";
@@ -134,6 +135,7 @@ export default function ProductPage() {
                 brand={brand}
                 title={product.name}
                 frame={activeFrame}
+                image={productImage(product.slug, activeFrame)}
               />
             </div>
           </div>
@@ -158,6 +160,7 @@ export default function ProductPage() {
                     brand={brand}
                     title={product.name}
                     frame={index}
+                    image={productImage(product.slug, index)}
                     alt={`${product.name} — ${label}`}
                   />
                 </span>

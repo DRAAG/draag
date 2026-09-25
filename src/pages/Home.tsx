@@ -170,7 +170,8 @@ export default function Home() {
                   brand={brandName(heroSneaker.brand)}
                   title={heroSneaker.name}
                   frame={0}
-                  alt="Featured sneaker placeholder"
+                  image={heroSneaker.image}
+                  alt={`${heroSneaker.name} by ${brandName(heroSneaker.brand)}`}
                 />
               </div>
             </div>

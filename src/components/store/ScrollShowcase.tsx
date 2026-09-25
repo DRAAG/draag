@@ -8,6 +8,7 @@ import {
   brandName,
   filterProducts,
   formatPrice,
+  productImage,
   type Category,
   type Product,
 } from "@/data/products";
@@ -45,7 +46,7 @@ function ShowcasePanel({
     >
       <Link
         to={`/category/${category.slug}`}
-        className="group/img relative block aspect-[4/3] overflow-hidden rounded-sm bg-black sm:aspect-[16/10] lg:aspect-[3/4]"
+        className="group/img relative block aspect-[4/3] overflow-hidden rounded-sm bg-foreground sm:aspect-[16/10] lg:aspect-[3/4]"
       >
         <motion.div
           className="absolute inset-0"
@@ -59,6 +60,7 @@ function ShowcasePanel({
             brand={brandName(product.brand)}
             title={product.name}
             frame={index + 1}
+            image={productImage(product.slug, index + 1)}
             className="transition-transform duration-700 ease-out group-hover/img:scale-[1.05]"
           />
         </motion.div>

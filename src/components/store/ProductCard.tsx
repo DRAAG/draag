@@ -3,7 +3,12 @@ import { Link } from "react-router";
 
 import { EditorialImage } from "@/components/store/EditorialImage";
 import { Badge } from "@/components/ui/badge";
-import { brandName, formatPrice, type Product } from "@/data/products";
+import {
+  brandName,
+  formatPrice,
+  productImage,
+  type Product,
+} from "@/data/products";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({
@@ -29,6 +34,7 @@ export function ProductCard({
             brand={brandName(product.brand)}
             title={product.name}
             frame={frame}
+            image={productImage(product.slug, frame)}
             className="transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
           />
         </div>

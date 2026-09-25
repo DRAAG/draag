@@ -1,4 +1,4 @@
-import { Clock, Instagram, Mail, MapPin } from "lucide-react";
+import { Clock, Instagram, MapPin } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -6,7 +6,7 @@ import { Reveal } from "@/components/store/Reveal";
 import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import {
-  CONTACT_EMAIL,
+  INSTAGRAM_DM_URL,
   INSTAGRAM_HANDLE,
   WHATSAPP_DISPLAY,
 } from "@/data/products";
@@ -22,18 +22,11 @@ const CHANNELS = [
     accent: true,
   },
   {
-    icon: Mail,
-    label: "Email",
-    value: CONTACT_EMAIL,
-    note: "For bulk enquiries, collaborations and invoices",
-    href: `mailto:${CONTACT_EMAIL}`,
-  },
-  {
     icon: Instagram,
-    label: "Instagram",
+    label: "Instagram DM",
     value: INSTAGRAM_HANDLE,
-    note: "New drops, restocks and behind the scenes",
-    href: "https://instagram.com/draag.co",
+    note: "Bulk enquiries, collaborations, invoices and new drops",
+    href: INSTAGRAM_DM_URL,
   },
 ];
 
@@ -52,12 +45,12 @@ export default function Contact() {
           <Reveal>
             <p className="eyebrow text-muted-foreground">Contact</p>
             <h1 className="display mt-6 max-w-3xl text-[12vw] leading-[0.95] sm:text-6xl lg:text-7xl">
-              One number. Real people.
+              Two chats. Real people.
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground">
-              Everything happens in chat: sizing advice, stock checks, payment
-              links and dispatch updates. Pick the channel that suits you — we
-              reply to all of them ourselves.
+              Everything happens in a DM: sizing advice, stock checks, payment
+              links and dispatch updates. WhatsApp or Instagram — we answer both
+              of them ourselves.
             </p>
           </Reveal>
         </div>
@@ -154,12 +147,14 @@ export default function Contact() {
             </a>
 
             <p className="mt-4 text-xs text-background/45">
-              Prefer email? Write to{" "}
+              Prefer Instagram? DM us at{" "}
               <a
-                href={`mailto:${CONTACT_EMAIL}`}
+                href={INSTAGRAM_DM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="underline underline-offset-4 hover:text-background"
               >
-                {CONTACT_EMAIL}
+                {INSTAGRAM_HANDLE}
               </a>
               .
             </p>

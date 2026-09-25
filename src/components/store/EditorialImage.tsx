@@ -9,6 +9,7 @@ export function EditorialImage({
   brand,
   title,
   frame = 0,
+  image,
   alt,
   className,
 }: {
@@ -16,12 +17,14 @@ export function EditorialImage({
   brand: string;
   title: string;
   frame?: number;
+  /** Real photography URL. Falls back to the generated editorial placeholder. */
+  image?: string;
   alt?: string;
   className?: string;
 }) {
   const src = useMemo(
-    () => productImageDataUri({ category, brand, title, frame }),
-    [category, brand, title, frame],
+    () => image ?? productImageDataUri({ category, brand, title, frame }),
+    [image, category, brand, title, frame],
   );
 
   return (
@@ -30,7 +33,7 @@ export function EditorialImage({
       alt={alt ?? `${title} by ${brand} — placeholder imagery`}
       loading="lazy"
       decoding="async"
-      className={cn("h-full w-full object-cover", className)}
+      className={cn("h-full w-full bg-secondary object-cover", className)}
     />
   );
 }

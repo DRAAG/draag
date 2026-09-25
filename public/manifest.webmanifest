@@ -1,11 +1,11 @@
 {
-  "name": "freebuff.com application",
-  "short_name": "freebuff.com",
-  "description": "freebuff.com application",
+  "name": "DRAAG.CO — Sneakers, Sunglasses & Watches",
+  "short_name": "DRAAG.CO",
+  "description": "An independent multi-brand retailer for sneakers, sunglasses and watches. Order directly via WhatsApp.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#F3EBDE",
+  "theme_color": "#2C2018",
   "icons": [
     {
       "src": "/logo.svg",

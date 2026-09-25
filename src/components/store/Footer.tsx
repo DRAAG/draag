@@ -1,4 +1,4 @@
-import { Mail, MapPin } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 
@@ -6,14 +6,14 @@ import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import {
   BRANDS,
   CATEGORIES,
-  CONTACT_EMAIL,
+  INSTAGRAM_DM_URL,
   INSTAGRAM_HANDLE,
   WHATSAPP_DISPLAY,
 } from "@/data/products";
 import { whatsappChatUrl } from "@/lib/whatsapp";
 
 const SOCIALS = [
-  { label: "Instagram", href: `https://instagram.com/${INSTAGRAM_HANDLE.replace("@", "")}` },
+  { label: "Instagram", href: INSTAGRAM_DM_URL },
   { label: "Pinterest", href: "https://pinterest.com" },
   { label: "TikTok", href: "https://tiktok.com" },
 ];
@@ -59,11 +59,13 @@ export function Footer() {
 
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <a
-                href={`mailto:${CONTACT_EMAIL}`}
+                href={INSTAGRAM_DM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
               >
-                <Mail className="size-3.5" />
-                {CONTACT_EMAIL}
+                <Instagram className="size-3.5" />
+                DM {INSTAGRAM_HANDLE}
               </a>
               <span className="inline-flex items-center gap-2">
                 <MapPin className="size-3.5" />
