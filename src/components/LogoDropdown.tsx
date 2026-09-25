@@ -34,11 +34,10 @@ export function LogoDropdown() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="h-10 w-10">
           <img
-            src="/logo.svg"
+            src="/logo.png"
             alt="DRAAG.CO"
             width={32}
             height={32}
-            className="rounded-md"
           />
         </Button>
       </DropdownMenuTrigger>

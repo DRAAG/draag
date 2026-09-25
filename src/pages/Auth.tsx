@@ -121,7 +121,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
               <CardHeader className="text-center">
               <div className="flex justify-center">
                     <img
-                      src="/logo.svg"
+                      src="/logo.png"
                       alt="DRAAG.CO"
                       width={64}
                       height={64}

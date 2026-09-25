@@ -41,7 +41,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
-              <BrandMark className="size-11 rounded-[6px]" />
+              <BrandMark className="size-12" />
               <p className="display text-2xl">
                 DRAAG<span className="text-muted-foreground">.CO</span>
               </p>

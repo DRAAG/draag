@@ -64,7 +64,7 @@ export function Navbar() {
           aria-label="DRAAG.CO home"
           className="flex shrink-0 items-center gap-2.5"
         >
-          <BrandMark className="size-9 rounded-[5px] sm:size-10" />
+          <BrandMark className="size-10 sm:size-11" />
           <Wordmark />
         </Link>
 
