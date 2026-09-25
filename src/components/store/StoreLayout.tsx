@@ -5,6 +5,7 @@ import { Footer } from "@/components/store/Footer";
 import { Navbar } from "@/components/store/Navbar";
 import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import { TICKER_ITEMS } from "@/components/store/ticker";
+import { useExternalLinkFallback } from "@/hooks/use-external-links";
 import { whatsappChatUrl } from "@/lib/whatsapp";
 
 /**
@@ -43,6 +44,9 @@ export function StoreLayout() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [pathname]);
+
+  // Keeps the WhatsApp and Instagram links working where new tabs are refused.
+  useExternalLinkFallback();
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
