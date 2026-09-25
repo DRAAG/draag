@@ -27,8 +27,8 @@ export default function NewArrivals() {
               Fresh off the last drop.
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground">
-              New stock lands every Friday at noon IST, in limited quantities.
-              What you see is what&apos;s on hand — when a size goes, it goes.
+              New stock lands every day, in limited quantities. What you see is
+              what&apos;s on hand — when a size goes, it goes.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
