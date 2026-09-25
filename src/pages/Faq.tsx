@@ -29,7 +29,7 @@ const SECTIONS = [
       },
       {
         q: "How long do replies take?",
-        a: "Usually under 15 minutes during studio hours (Mon–Sat, 10:00–19:00 IST). Late-night messages get answered first thing the next morning.",
+        a: "Usually under 15 minutes. We're on 24/7 — there's no closing time, so message whenever it suits you.",
       },
       {
         q: "How do I pay?",

@@ -93,10 +93,10 @@ export default function Contact() {
           <Reveal delay={0.2} className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-sm border border-border p-6">
               <Clock className="size-5 text-muted-foreground" />
-              <p className="display mt-4 text-base">Studio hours</p>
+              <p className="display mt-4 text-base">Open 24/7</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Monday to Saturday, 10:00 – 19:00 IST. Sunday messages are
-                answered first thing Monday.
+                No closing time and no cut-off. Message us whenever it suits
+                you — it lands with us and we reply as quickly as we can.
               </p>
             </div>
             <div className="rounded-sm border border-border p-6">
