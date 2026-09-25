@@ -162,7 +162,7 @@ export default function Contact() {
 
           <div className="mt-4 rounded-sm border border-border bg-secondary/50 p-6">
             <p className="text-sm text-muted-foreground">
-              Answers to sizing, authenticity and shipping questions live in the{" "}
+              Answers to sizing, product and shipping questions live in the{" "}
               <Link
                 to="/faq"
                 className="font-semibold text-foreground underline underline-offset-4"

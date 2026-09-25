@@ -3,7 +3,6 @@ import {
   ChevronRight,
   PackageCheck,
   RotateCcw,
-  ShieldCheck,
   Truck,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -33,7 +32,6 @@ import { cn } from "@/lib/utils";
 import { buildOrderMessage, whatsappOrderUrl } from "@/lib/whatsapp";
 
 const PERKS = [
-  { icon: ShieldCheck, label: "Authentic sourcing" },
   { icon: Truck, label: "Ships in 24h" },
   { icon: RotateCcw, label: "7-day size exchange" },
   { icon: PackageCheck, label: "Inspected before dispatch" },
@@ -342,7 +340,7 @@ export default function ProductPage() {
             </AccordionItem>
             <AccordionItem value="authenticity">
               <AccordionTrigger className="font-display text-xs uppercase tracking-[0.18em] hover:no-underline">
-                Authenticity &amp; sourcing
+                Sourcing &amp; trademarks
               </AccordionTrigger>
               <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
                 Every pair is sourced through vetted distributors and inspected

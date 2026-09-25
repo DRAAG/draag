@@ -1,5 +1,5 @@
 import { SlidersHorizontal, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 
 import { ProductCard } from "@/components/store/ProductCard";
@@ -59,7 +59,13 @@ export default function CategoryPage() {
   const [brands, setBrands] = useState<BrandSlug[]>([]);
   const [sizes, setSizes] = useState<string[]>([]);
   const [colors, setColors] = useState<string[]>([]);
-  const [maxPrice, setMaxPrice] = useState(0);
+  // `maxPrice` is the applied filter (null = no price filter). The thumb moves a
+  // draft value that only lands in `maxPrice` on release, so dragging the slider
+  // never reflows the results grid under the cursor.
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [draftPrice, setDraftPrice] = useState<number | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const draftPriceRef = useRef<number | null>(null);
   const [sort, setSort] = useState<SortKey>("featured");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -74,7 +80,10 @@ export default function CategoryPage() {
     setColors([]);
     setSort("featured");
     setFiltersOpen(false);
-    setMaxPrice(0);
+    setMaxPrice(null);
+    setDraftPrice(null);
+    setDragging(false);
+    draftPriceRef.current = null;
   }, [slug]);
 
   const allSizes = useMemo(
@@ -91,7 +100,24 @@ export default function CategoryPage() {
     [base],
   );
 
-  const effectiveCeiling = maxPrice || priceCeiling;
+  const effectiveCeiling = maxPrice ?? priceCeiling;
+  const sliderValue = draftPrice ?? effectiveCeiling;
+
+  const commitPrice = useCallback(() => {
+    if (draftPriceRef.current !== null) setMaxPrice(draftPriceRef.current);
+    setDragging(false);
+  }, []);
+
+  // A pointer released anywhere (not just on the track) still applies the value.
+  useEffect(() => {
+    if (!dragging) return;
+    window.addEventListener("pointerup", commitPrice);
+    window.addEventListener("pointercancel", commitPrice);
+    return () => {
+      window.removeEventListener("pointerup", commitPrice);
+      window.removeEventListener("pointercancel", commitPrice);
+    };
+  }, [dragging, commitPrice]);
 
   const results = useMemo(() => {
     let list = base.filter((p) => p.price <= effectiveCeiling);
@@ -117,7 +143,9 @@ export default function CategoryPage() {
     setBrands([]);
     setSizes([]);
     setColors([]);
-    setMaxPrice(0);
+    setMaxPrice(null);
+    setDraftPrice(null);
+    draftPriceRef.current = null;
   };
 
   if (!category) {
@@ -211,15 +239,25 @@ export default function CategoryPage() {
           min={0}
           max={priceCeiling}
           step={500}
-          value={effectiveCeiling}
-          onChange={(event) => setMaxPrice(Number(event.target.value))}
+          value={sliderValue}
+          onPointerDown={() => setDragging(true)}
+          onChange={(event) => {
+            const value = Number(event.target.value);
+            draftPriceRef.current = value;
+            setDraftPrice(value);
+          }}
+          onKeyUp={(event) => {
+            const value = Number(event.currentTarget.value);
+            draftPriceRef.current = value;
+            setMaxPrice(value);
+          }}
           className="w-full accent-[var(--accent)]"
           aria-label="Maximum price"
         />
-        <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-          <span>{formatPrice(0)}</span>
+        <div className="mt-2 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+          <span>{dragging ? "Release to apply" : formatPrice(0)}</span>
           <span className="font-semibold text-foreground">
-            {formatPrice(effectiveCeiling)}
+            {formatPrice(sliderValue)}
           </span>
         </div>
       </FilterSection>
@@ -324,7 +362,7 @@ export default function CategoryPage() {
 
           {results.length ? (
             <RevealStagger
-              key={`${slug}-${results.length}`}
+              key={slug}
               className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-3 lg:gap-x-6"
             >
               {results.map((product: Product, index) => (

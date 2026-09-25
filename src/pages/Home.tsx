@@ -24,7 +24,6 @@ const heroSneaker = filterProducts({ category: "sneakers", tag: "featured" })[0]
 const STATS = [
   { value: "5", label: "Brands stocked" },
   { value: "3", label: "Categories" },
-  { value: "100%", label: "Authentic sourcing" },
   { value: "24h", label: "Dispatch window" },
 ];
 
@@ -140,7 +139,7 @@ export default function Home() {
               </a>
             </motion.div>
 
-            <div className="mt-12 grid max-w-lg grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4">
+            <div className="mt-12 grid max-w-lg grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3">
               {STATS.map((stat, index) => (
                 <motion.div
                   key={stat.label}

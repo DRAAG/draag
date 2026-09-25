@@ -61,7 +61,7 @@ const SECTIONS = [
   },
   {
     id: "authenticity",
-    title: "Authenticity & sourcing",
+    title: "Sourcing",
     items: [
       {
         q: "Are the products genuine?",
@@ -144,8 +144,8 @@ export default function Faq() {
               Everything you&apos;d ask us anyway.
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground">
-              Sizing, authenticity, shipping and exactly how ordering on
-              WhatsApp works. If your question isn&apos;t here, just message us.
+              Sizing, sourcing and shipping questions, plus exactly how ordering
+              on WhatsApp works. If your question isn&apos;t here, just message us.
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {SECTIONS.map((section) => (
