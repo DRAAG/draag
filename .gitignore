@@ -1,4 +1,8 @@
-.env.local
 node_modules
 dist
 src/convex/_generated
+
+# Local secrets — never commit these to the connected GitHub repo
+.env
+.env.*
+!.env.example
