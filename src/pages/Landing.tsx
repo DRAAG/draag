@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
 
+import { assetUrl } from "@/lib/asset";
+
 export default function Landing() {
   return (
     <motion.div
@@ -18,7 +20,7 @@ export default function Landing() {
         {/* TODO: landing page goes here; replace with the landing page */}
         <div className="flex justify-center">
           <img
-            src="/logo.png"
+            src={assetUrl("/logo.png")}
             alt="Lock Icon"
             width={64}
             height={64}

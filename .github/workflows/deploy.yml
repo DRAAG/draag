@@ -1,0 +1,82 @@
+# Publishes the built storefront to GitHub Pages.
+#
+# The app is a static SPA, so the only Pages-specific work is:
+#   * building with --base=/<repo>/ so every asset URL resolves under the
+#     project sub-path (`<user>.github.io/<repo>/`),
+#   * copying index.html to 404.html so deep links still boot the app,
+#   * .nojekyll so Pages never runs the site through Jekyll.
+#
+# One-time setup: Settings -> Pages -> Build and deployment -> Source:
+# "GitHub Actions". Push to the default branch (or run this workflow from the
+# Actions tab) and the site deploys.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Work out the base path
+        id: base
+        run: |
+          # User/organisation sites are served from the domain root; every other
+          # repo is served from /<repo-name>/.
+          if [ "${{ github.event.repository.name }}" = "${{ github.repository_owner }}.github.io" ]; then
+            echo "path=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        env:
+          # Optional. Only needed for /auth and /dashboard; without the secret the
+          # storefront still builds and runs, and those routes show a notice.
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+        # `bun run build` typechecks (tsc -b) then builds; extra args are
+        # forwarded to `vite build`, which is where --base lands.
+        run: bun run build --base="${{ steps.base.outputs.path }}"
+
+      - name: Add the SPA fallback and .nojekyll
+        run: |
+          cp dist/index.html dist/404.html
+          touch dist/.nojekyll
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

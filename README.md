@@ -21,6 +21,39 @@ Use bun for the package manager.
 
 This project is set up already and running on a cloud environment, as well as a convex development in the sandbox.
 
+## Deploying the storefront to GitHub Pages
+
+The storefront is a static SPA — `bun run build` emits a plain `dist/` folder that
+can be hosted anywhere. GitHub Pages needs three things, all wired up in
+`.github/workflows/deploy.yml`:
+
+1. **A base path.** Pages serves project repos from `/<repo-name>/`, so the
+   workflow builds with `--base=/<repo-name>/`. Asset URLs in the app go through
+   `assetUrl()` in `src/lib/asset.ts`, and the router uses `ROUTER_BASENAME`,
+   both derived from that base, so nothing 404s.
+2. **The build output, not the source.** Pages must serve the built `dist/` —
+   never the repository root, whose `index.html` points at `/src/main.tsx`
+   (dev-server only) and is what a blank white page comes from.
+3. **An SPA fallback.** The workflow copies `dist/index.html` to `dist/404.html`,
+   so deep links like `/product/<slug>` load the app instead of a Pages 404.
+
+### One-time setup
+
+1. Push the app sources to GitHub (`dist/` stays gitignored).
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
+3. Optional, only for sign-in and `/dashboard`: **Settings → Secrets and
+   variables → Actions → New repository secret** named `VITE_CONVEX_URL` set to
+   your Convex deployment URL. Without it the storefront still builds and runs;
+   `/auth` and `/dashboard` show a "sign-in isn't set up" notice.
+4. Push to your default branch, or run **Deploy to GitHub Pages** from the
+   Actions tab.
+
+The site lands at `https://<user>.github.io/<repo>/`. User/org sites
+(`<user>.github.io`) are detected and built with base `/`.
+
+Local development is unaffected: `bun run dev` keeps serving the app from the
+domain root.
+
 ## Environment Variables
 
 The project is set up with project specific CONVEX_DEPLOYMENT and VITE_CONVEX_URL environment variables on the client side.

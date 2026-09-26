@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset";
 import { cn } from "@/lib/utils";
 
 /**
@@ -7,7 +8,7 @@ import { cn } from "@/lib/utils";
 export function BrandMark({ className }: { className?: string }) {
   return (
     <img
-      src="/logo.png"
+      src={assetUrl("/logo.png")}
       alt=""
       aria-hidden
       decoding="async"

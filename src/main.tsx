@@ -2,12 +2,13 @@ import '@vly-ai/integrations';
 import { Toaster } from "@/components/ui/sonner";
 import { RequireAuth } from "@/components/RequireAuth";
 import { StoreLayout } from "@/components/store/StoreLayout";
+import { ROUTER_BASENAME } from "@/lib/asset";
 import { VlyToolbar } from "../vly-toolbar-readonly.tsx";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { ConvexReactClient } from "convex/react";
 import React, { StrictMode, useEffect, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router";
+import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router";
 import "./index.css";
 
 // Lazy load route components for better code splitting
@@ -89,7 +90,36 @@ class RootErrorBoundary extends React.Component<
   }
 }
 
-const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+/** Static hosts (GitHub Pages, a plain folder upload, …) only have a Convex URL
+ *  when one is baked in at build time. Without it the account routes stop
+ *  working, but the storefront is fully static and must still render. */
+const convexUrl = import.meta.env.VITE_CONVEX_URL as string | undefined;
+const convex = convexUrl ? new ConvexReactClient(convexUrl) : null;
+
+/** Stands in for `/auth` and `/dashboard` when no backend URL was configured. */
+function AccountsUnavailable() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-background p-6">
+      <div className="max-w-md text-center">
+        <p className="eyebrow text-muted-foreground">Accounts</p>
+        <h1 className="display mt-3 text-3xl">
+          Sign-in isn&apos;t set up on this deployment
+        </h1>
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+          The store works without an account — browse the catalogue and order on
+          WhatsApp. Sign-in and the dashboard need a backend URL built into the
+          site.
+        </p>
+        <Link
+          to="/"
+          className="mt-6 inline-flex h-11 items-center rounded-sm bg-foreground px-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-colors hover:bg-foreground/85"
+        >
+          Back to the store
+        </Link>
+      </div>
+    </main>
+  );
+}
 
 
 
@@ -117,46 +147,72 @@ function RouteSyncer() {
 }
 
 
+/** Routed under the deployment's base path so the same build works at `/` in
+ *  dev and at `/<repo>/` on GitHub Pages (see `src/lib/asset.ts`). */
+function AppRoutes() {
+  return (
+    <BrowserRouter basename={ROUTER_BASENAME}>
+      <RouteSyncer />
+      <Suspense fallback={<RouteLoading />}>
+        <Routes>
+          <Route element={<StoreLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/category/:slug" element={<Category />} />
+            <Route path="/brands" element={<Brands />} />
+            <Route path="/brand/:slug" element={<Brand />} />
+            <Route path="/product/:slug" element={<Product />} />
+            <Route path="/new-arrivals" element={<NewArrivals />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<Faq />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route
+            path="/auth"
+            element={
+              convex ? (
+                <AuthPage redirectAfterAuth="/dashboard" />
+              ) : (
+                <AccountsUnavailable />
+              )
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              convex ? (
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              ) : (
+                <AccountsUnavailable />
+              )
+            }
+          />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
+}
+
+const app = (
+  <>
+    <AppRoutes />
+    <Toaster />
+  </>
+);
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RootErrorBoundary>
       <ToolbarErrorBoundary>
         <VlyToolbar />
       </ToolbarErrorBoundary>
-      <ConvexAuthProvider client={convex}>
-        <BrowserRouter>
-          <RouteSyncer />
-          <Suspense fallback={<RouteLoading />}>
-            <Routes>
-              <Route element={<StoreLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/category/:slug" element={<Category />} />
-                <Route path="/brands" element={<Brands />} />
-                <Route path="/brand/:slug" element={<Brand />} />
-                <Route path="/product/:slug" element={<Product />} />
-                <Route path="/new-arrivals" element={<NewArrivals />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/faq" element={<Faq />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-              <Route
-                path="/auth"
-                element={<AuthPage redirectAfterAuth="/dashboard" />}
-              />
-              <Route
-                path="/dashboard"
-                element={
-                  <RequireAuth>
-                    <Dashboard />
-                  </RequireAuth>
-                }
-              />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-        <Toaster />
-      </ConvexAuthProvider>
+      {convex ? (
+        <ConvexAuthProvider client={convex}>{app}</ConvexAuthProvider>
+      ) : (
+        app
+      )}
     </RootErrorBoundary>
   </StrictMode>,
 );

@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/use-auth";
+import { assetUrl } from "@/lib/asset";
 import { Home, LogOut } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -34,7 +35,7 @@ export function LogoDropdown() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="h-10 w-10">
           <img
-            src="/logo.png"
+            src={assetUrl("/logo.png")}
             alt="DRAAG.CO"
             width={32}
             height={32}
