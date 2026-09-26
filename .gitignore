@@ -1,6 +1,11 @@
 node_modules
 dist
-src/convex/_generated
+
+# NOTE: src/convex/_generated is deliberately NOT ignored. The Convex CLI writes
+# those types during `convex dev` and asks for them to be committed ("your code
+# won't typecheck without it!"). The GitHub Pages build has no deployment
+# credentials to regenerate them with, so they travel with the repo. They are
+# refreshed automatically whenever the backend changes.
 
 # Generated source export (downloadable build artifact, not part of the app)
 public/downloads
