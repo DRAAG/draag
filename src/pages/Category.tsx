@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router";
 
 import { ProductCard } from "@/components/store/ProductCard";
 import { Reveal, RevealItem, RevealStagger } from "@/components/store/Reveal";
+import { WhatsAppIcon } from "@/components/store/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -23,6 +24,7 @@ import {
   type Product,
 } from "@/data/products";
 import { cn } from "@/lib/utils";
+import { whatsappChatUrl } from "@/lib/whatsapp";
 
 type SortKey = "featured" | "price-asc" | "price-desc";
 
@@ -376,16 +378,29 @@ export default function CategoryPage() {
               <X className="mx-auto size-6 text-muted-foreground" />
               <p className="display mt-5 text-xl">No matches in this filter</p>
               <p className="mx-auto mt-3 max-w-sm text-sm text-muted-foreground">
-                Loosen a filter, or message us on WhatsApp — we regularly source
-                sizes that aren&apos;t listed yet.
+                Loosen a filter, or message us — we regularly source sizes that
+                aren&apos;t listed yet.
               </p>
-              <Button
-                variant="outline"
-                className="mt-6 rounded-sm"
-                onClick={clearAll}
-              >
-                Clear filters
-              </Button>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <Button
+                  variant="outline"
+                  className="rounded-sm"
+                  onClick={clearAll}
+                >
+                  Clear filters
+                </Button>
+                <a
+                  href={whatsappChatUrl(
+                    "Hi DRAAG.CO, I'm looking for a size that isn't listed on the site.",
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 items-center gap-2 rounded-sm bg-accent px-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground transition-colors hover:bg-accent/85"
+                >
+                  <WhatsAppIcon className="size-4" />
+                  Ask on WhatsApp
+                </a>
+              </div>
             </Reveal>
           )}
         </div>

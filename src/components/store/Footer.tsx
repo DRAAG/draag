@@ -13,11 +13,7 @@ import {
 } from "@/data/products";
 import { whatsappChatUrl } from "@/lib/whatsapp";
 
-const SOCIALS = [
-  { label: "Instagram", href: INSTAGRAM_DM_URL },
-  { label: "Pinterest", href: "https://pinterest.com" },
-  { label: "TikTok", href: "https://tiktok.com" },
-];
+const SOCIALS = [{ label: "Instagram", href: INSTAGRAM_DM_URL }];
 
 function FooterColumn({
   title,

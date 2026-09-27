@@ -29,7 +29,11 @@ import {
   productImage,
 } from "@/data/products";
 import { cn } from "@/lib/utils";
-import { buildOrderMessage, whatsappOrderUrl } from "@/lib/whatsapp";
+import {
+  buildOrderMessage,
+  whatsappChatUrl,
+  whatsappOrderUrl,
+} from "@/lib/whatsapp";
 
 const PERKS = [
   { icon: Truck, label: "Ships in 24h" },
@@ -323,8 +327,18 @@ export default function ProductPage() {
               </AccordionTrigger>
               <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
                 Sneakers run true to size across the brands we stock. If
-                you&apos;re between sizes, size up for a roomier fit. Send us a
-                note on WhatsApp and we&apos;ll match you to the right pair.
+                you&apos;re between sizes, size up for a roomier fit.{" "}
+                <a
+                  href={whatsappChatUrl(
+                    `Hi DRAAG.CO, I need help with sizing on the ${product.name}.`,
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-foreground underline underline-offset-4"
+                >
+                  Send us a note on WhatsApp
+                </a>{" "}
+                and we&apos;ll match you to the right pair.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="shipping">
